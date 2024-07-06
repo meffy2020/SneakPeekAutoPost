@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useFollowers } from '@/context/FollowerContext';
 
 const PostingPage = ({ profileImage }: { profileImage: string }) => {
@@ -13,18 +13,6 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
     const [isValid, setIsValid] = useState(false); // 포스팅 가능 여부
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-        const image = searchParams.get('image');
-        const text = searchParams.get('text');
-        if (image) {
-            setSelectedImage(decodeURIComponent(image));
-        }
-        if (text) {
-            setPostText(decodeURIComponent(text));
-        }
-    }, [searchParams]);
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
