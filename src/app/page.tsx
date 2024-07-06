@@ -25,6 +25,7 @@ const HomePage = () => {
     const { followers, setFollowers } = useFollowers();
     const [displayFollowers, setDisplayFollowers] = useState(followers);
     const [timer, setTimer] = useState(180); // 3분 타이머 (초)
+    const [selectedTrend, setSelectedTrend] = useState(''); // Add this line
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -40,10 +41,10 @@ const HomePage = () => {
     }, [searchParams]);
 
     useEffect(() => {
-        if (!showPopupAfterPost && showNotificationPopup) {
+        if (!showPopupAfterPost && selectedTrend) {
             setShowNotificationPopup(true);
         }
-    }, [showPopupAfterPost, showNotificationPopup]);
+    }, [showPopupAfterPost, selectedTrend]);
 
     const handleClosePopup = () => {
         setShowPopup(false);
@@ -94,6 +95,7 @@ const HomePage = () => {
             const trendsResponse = await fetch('/api/trends');
             const trendsData = await trendsResponse.json();
             const topic = trendsData.trends[0];
+            setSelectedTrend(topic); // Add this line
 
             const response = await fetch(`/api/generate-post?topic=${encodeURIComponent(topic)}`, {
                 method: 'GET',
@@ -122,6 +124,7 @@ const HomePage = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.trends.length > 0) {
+                    setSelectedTrend(data.trends[0]); // Add this line
                     setShowNotificationPopup(true);
                 }
             })
