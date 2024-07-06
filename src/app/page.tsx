@@ -25,15 +25,10 @@ const HomePage = () => {
     const { followers, setFollowers } = useFollowers();
     const [displayFollowers, setDisplayFollowers] = useState(followers);
     const [timer, setTimer] = useState(180); // 3분 타이머 (초)
-    const [posts, setPosts] = useState<{ image: string, text: string }[]>([]);
-    const [selectedTrend, setSelectedTrend] = useState<string>('');
     const searchParams = useSearchParams();
     const router = useRouter();
 
     useEffect(() => {
-        const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
-        setPosts(savedPosts);
-
         if (searchParams.get('showHearts') === 'true') {
             setShowPopup(false);
             setShowHearts(true);
@@ -45,10 +40,10 @@ const HomePage = () => {
     }, [searchParams]);
 
     useEffect(() => {
-        if (!showPopupAfterPost && selectedTrend) {
+        if (!showPopupAfterPost && showNotificationPopup) {
             setShowNotificationPopup(true);
         }
-    }, [showPopupAfterPost, selectedTrend]);
+    }, [showPopupAfterPost, showNotificationPopup]);
 
     const handleClosePopup = () => {
         setShowPopup(false);
@@ -127,9 +122,8 @@ const HomePage = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.trends.length > 0) {
-                    setSelectedTrend(data.trends[0]);
+                    setShowNotificationPopup(true);
                 }
-                setShowNotificationPopup(true);
             })
             .catch((error) => console.error('Error fetching trends:', error));
     };
@@ -162,7 +156,7 @@ const HomePage = () => {
 
     return (
         <div className="overflow-auto h-full">
-            {showNotificationPopup && selectedTrend && (
+            {showNotificationPopup && (
                 <NotificationPopup
                     trend={selectedTrend}
                     onClick={handleNotificationClick}
@@ -177,7 +171,7 @@ const HomePage = () => {
             )}
             {showLastPopup && <LastPopup />}
             <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
-            <PostGrid posts={posts} />
+            <PostGrid />
         </div>
     );
 };
