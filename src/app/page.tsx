@@ -34,24 +34,21 @@ const HomePage = () => {
         const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
         setPosts(savedPosts);
 
-        const gptPopupShownFromLocalStorage = localStorage.getItem('gptPopupShown');
-        if (gptPopupShownFromLocalStorage) {
-            setShowPopupAfterPost(false);
-        }
-
         if (searchParams.get('showHearts') === 'true') {
             setShowPopup(false);
             setShowHearts(true);
             setTimeout(() => {
                 setShowHearts(false);
-                if (!gptPopupShownFromLocalStorage) {
-                    setShowPopupAfterPost(true);
-                } else {
-                    setShowLastPopup(true);
-                }
+                setShowPopupAfterPost(true);
             }, 5000);
         }
     }, [searchParams]);
+
+    useEffect(() => {
+        if (!showPopupAfterPost && selectedTrend) {
+            setShowNotificationPopup(true);
+        }
+    }, [showPopupAfterPost, selectedTrend]);
 
     const handleClosePopup = () => {
         setShowPopup(false);
@@ -126,7 +123,6 @@ const HomePage = () => {
 
     const handlePopupStartGPTClose = () => {
         setShowPopupAfterPost(false);
-        localStorage.setItem('gptPopupShown', 'true');
         fetch('/api/trends')
             .then((res) => res.json())
             .then((data) => {
