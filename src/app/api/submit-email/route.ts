@@ -16,21 +16,21 @@ const auth = new google.auth.GoogleAuth({
 });
 
 export async function POST(req: NextRequest) {
-    const { email } = await req.json();
-
-    if (!email) {
-        return NextResponse.json({ error: 'Email is required' }, { status: 400 });
-    }
-
     try {
-        const client = await auth.getClient();
-        const spreadsheetId = 'your_spreadsheet_id'; // Replace with your spreadsheet ID
+        const { email } = await req.json();
+        
+        if (!email) {
+            return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+        }
 
+        const client = await auth.getClient();
+        google.options({ auth: client });
+
+        const spreadsheetId = 'your_spreadsheet_id'; // Replace with your spreadsheet ID
         const range = 'Sheet1!A:A'; // Replace with your sheet name and range
         const valueInputOption = 'RAW';
 
         await sheets.spreadsheets.values.append({
-            auth: client,
             spreadsheetId,
             range,
             valueInputOption,
