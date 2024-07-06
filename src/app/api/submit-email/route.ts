@@ -11,7 +11,6 @@ const auth = new google.auth.GoogleAuth({
         private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         client_id: process.env.GOOGLE_CLIENT_ID,
-        token_uri: process.env.GOOGLE_TOKEN_URI,
         auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
         client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
     },
