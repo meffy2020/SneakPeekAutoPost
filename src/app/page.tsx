@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 import ProfileHeader from '../components/ProfileHeader';
 import PostGrid from '../components/PostGrid';
 import Popup from '../components/Popup';

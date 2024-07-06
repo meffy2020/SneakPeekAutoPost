@@ -12,19 +12,22 @@ const defaultPosts = [
     { image: "/post9.png", text: "" },
 ];
 
-const PostGrid = () => {
-    const [posts, setPosts] = useState<{ image: string, text: string }[]>(defaultPosts);
+interface PostGridProps {
+    posts: { image: string; text: string }[];
+}
+
+const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
+    const [displayedPosts, setDisplayedPosts] = useState<{ image: string, text: string }[]>(defaultPosts);
 
     useEffect(() => {
-        const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
-        if (savedPosts.length > 0) {
-            setPosts([...defaultPosts, ...savedPosts]);
+        if (posts.length > 0) {
+            setDisplayedPosts([...defaultPosts, ...posts]);
         }
-    }, []);
+    }, [posts]);
 
     return (
         <div className="grid grid-cols-3 gap-1">
-            {posts.map((post, index) => (
+            {displayedPosts.map((post, index) => (
                 <div key={index} className="relative">
                     <img src={post.image} alt={`Post ${index + 1}`} className="w-full h-full object-cover" />
                 </div>
