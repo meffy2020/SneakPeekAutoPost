@@ -8,7 +8,7 @@ const auth = new google.auth.GoogleAuth({
         type: 'service_account',
         project_id: process.env.GOOGLE_PROJECT_ID,
         private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         client_id: process.env.GOOGLE_CLIENT_ID,
         auth_uri: process.env.GOOGLE_AUTH_URI,
@@ -20,15 +20,16 @@ const auth = new google.auth.GoogleAuth({
 });
 
 export async function POST(req: NextRequest) {
+    const { email } = await req.json();
+
+    if (!email) {
+        return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    }
+
     try {
-        const { email } = await req.json();
-
-        if (!email) {
-            return NextResponse.json({ error: 'Email is required' }, { status: 400 });
-        }
-
         const client = await auth.getClient();
-        const spreadsheetId = '16HbTz9p7e62GGhpG-zRv6LyL0nac6SA9FxXWbjJoLZ8'; // Replace with your spreadsheet ID
+        const spreadsheetId = 'your_spreadsheet_id'; // Replace with your spreadsheet ID
+
         const range = 'Sheet1!A:A'; // Replace with your sheet name and range
         const valueInputOption = 'RAW';
 
@@ -44,7 +45,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ message: 'Email submitted successfully' });
     } catch (error) {
-        console.error(error);
+        console.error('Error submitting email:', error);
         return NextResponse.json({ error: 'Failed to submit email' }, { status: 500 });
     }
 }
