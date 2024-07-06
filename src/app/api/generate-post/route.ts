@@ -36,7 +36,11 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ keyword: topic, text: content });
     } catch (error) {
-        console.error('Error generating post:', error.response ? error.response.data : error.message);
+        if (error instanceof Error) {
+            console.error('Error generating post:', error.message);
+        } else {
+            console.error('Unexpected error generating post:', error);
+        }
         return NextResponse.json({ error: 'Failed to generate post' }, { status: 500 });
     }
 }
