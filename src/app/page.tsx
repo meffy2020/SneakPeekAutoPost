@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import ProfileHeader from '../components/ProfileHeader';
 import PostGrid from '../components/PostGrid';
 import Popup from '../components/Popup';
@@ -25,11 +26,15 @@ const HomePage = () => {
     const { followers, setFollowers } = useFollowers();
     const [displayFollowers, setDisplayFollowers] = useState(followers);
     const [timer, setTimer] = useState(180); // 3분 타이머 (초)
-    const [selectedTrend, setSelectedTrend] = useState(''); // Add this line
+    const [posts, setPosts] = useState<{ image: string, text: string }[]>([]);
+    const [selectedTrend, setSelectedTrend] = useState<string>('');
     const searchParams = useSearchParams();
     const router = useRouter();
 
     useEffect(() => {
+        const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+        setPosts(savedPosts);
+
         if (searchParams.get('showHearts') === 'true') {
             setShowPopup(false);
             setShowHearts(true);
@@ -95,7 +100,6 @@ const HomePage = () => {
             const trendsResponse = await fetch('/api/trends');
             const trendsData = await trendsResponse.json();
             const topic = trendsData.trends[0];
-            setSelectedTrend(topic); // Add this line
 
             const response = await fetch(`/api/generate-post?topic=${encodeURIComponent(topic)}`, {
                 method: 'GET',
@@ -124,9 +128,9 @@ const HomePage = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.trends.length > 0) {
-                    setSelectedTrend(data.trends[0]); // Add this line
-                    setShowNotificationPopup(true);
+                    setSelectedTrend(data.trends[0]);
                 }
+                setShowNotificationPopup(true);
             })
             .catch((error) => console.error('Error fetching trends:', error));
     };
@@ -152,29 +156,26 @@ const HomePage = () => {
         return `${minutes}:${secs}`;
     };
 
-    const handleHeartAnimationComplete = () => {
-        setShowHearts(false);
-        setShowLastPopup(true);
-    };
-
     return (
         <div className="overflow-auto h-full">
-            {showNotificationPopup && (
-                <NotificationPopup
-                    trend={selectedTrend}
-                    onClick={handleNotificationClick}
-                />
-            )}
+            <Suspense fallback={<div>Loading...</div>}>
+                {showNotificationPopup && selectedTrend && (
+                    <NotificationPopup
+                        trend={selectedTrend}
+                        onClick={handleNotificationClick}
+                    />
+                )}
+            </Suspense>
             {showPopup && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
             {showCountdown && <CountDownOverlay onComplete={handleCountdownComplete} />}
-            {showHearts && <HeartAnimation onComplete={handleHeartAnimationComplete} />}
+            {showHearts && <HeartAnimation onComplete={() => setShowHearts(false)} />}
             {showSadPopup && <SadEmojiPopup onClose={handleCloseSadPopup} />}
             {showPopupAfterPost && !localStorage.getItem('gptPopupShown') && (
                 <PopupStartGPT onClose={handlePopupStartGPTClose} />
             )}
             {showLastPopup && <LastPopup />}
             <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
-            <PostGrid />
+            <PostGrid posts={posts} />
         </div>
     );
 };
