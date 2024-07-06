@@ -1,4 +1,5 @@
-import { google } from 'googleapis';
+/**
+  import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 
 const sheets = google.sheets('v4');
@@ -48,3 +49,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Failed to submit email' }, { status: 500 });
     }
 }
+
+
+    */
