@@ -155,6 +155,11 @@ const HomePage = () => {
         return `${minutes}:${secs}`;
     };
 
+    const handleHeartAnimationComplete = () => {
+        setShowHearts(false);
+        setShowLastPopup(true);
+    };
+
     return (
         <div className="overflow-auto h-full">
             {showNotificationPopup && selectedTrend && (
@@ -165,7 +170,7 @@ const HomePage = () => {
             )}
             {showPopup && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
             {showCountdown && <CountDownOverlay onComplete={handleCountdownComplete} />}
-            {showHearts && <HeartAnimation />}
+            {showHearts && <HeartAnimation onComplete={handleHeartAnimationComplete} />}
             {showSadPopup && <SadEmojiPopup onClose={handleCloseSadPopup} />}
             {showPopupAfterPost && !localStorage.getItem('gptPopupShown') && (
                 <PopupStartGPT onClose={handlePopupStartGPTClose} />
