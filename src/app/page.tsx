@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import ProfileHeader from '../components/ProfileHeader';
 import PostGrid from '../components/PostGrid';
 import Popup from '../components/Popup';
@@ -11,6 +11,7 @@ import PopupStartGPT from '../components/PopupStartGPT';
 import SadEmojiPopup from '../components/SadEmojiPopup';
 import NotificationPopup from '../components/NotificationPopup';
 import LastPopup from '../components/LastPopup';
+import SearchParamsWrapper from '../components/SearchParamsWrapper';
 import { useFollowers } from '@/context/FollowerContext';
 
 const HomePage = () => {
@@ -27,14 +28,15 @@ const HomePage = () => {
     const [timer, setTimer] = useState(180); // 3분 타이머 (초)
     const [posts, setPosts] = useState<{ image: string, text: string }[]>([]);
     const [selectedTrend, setSelectedTrend] = useState<string>('');
-    const searchParams = useSearchParams();
     const router = useRouter();
 
     useEffect(() => {
         const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
         setPosts(savedPosts);
+    }, []);
 
-        if (searchParams.get('showHearts') === 'true') {
+    const handleParams = (params: URLSearchParams) => {
+        if (params.get('showHearts') === 'true') {
             setShowPopup(false);
             setShowHearts(true);
             setTimeout(() => {
@@ -42,7 +44,7 @@ const HomePage = () => {
                 setShowPopupAfterPost(true);
             }, 5000);
         }
-    }, [searchParams]);
+    };
 
     useEffect(() => {
         if (!showPopupAfterPost && selectedTrend) {
@@ -157,6 +159,9 @@ const HomePage = () => {
 
     return (
         <div className="overflow-auto h-full">
+            <Suspense fallback={<div>Loading...</div>}>
+                <SearchParamsWrapper onParams={handleParams} />
+            </Suspense>
             <Suspense fallback={<div>Loading...</div>}>
                 {showNotificationPopup && selectedTrend && (
                     <NotificationPopup
