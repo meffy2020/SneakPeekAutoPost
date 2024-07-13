@@ -1,6 +1,6 @@
 "use client";
 // HomePage.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import ProfileHeader from '../components/ProfileHeader';
 import PostGrid from '../components/PostGrid';
@@ -13,6 +13,7 @@ import NotificationPopup from '../components/NotificationPopup';
 import LastPopup from '../components/LastPopup';
 import { useFollowers } from '@/context/FollowerContext';
 import SearchParamsWrapper from '@/components/SearchParamsWrapper';
+
 
 const HomePage = () => {
     const [showPopup, setShowPopup] = useState(true);
@@ -163,7 +164,12 @@ const HomePage = () => {
 
     return (
         <div className="overflow-auto h-full">
+             <Suspense fallback={<div>로딩 중...</div>}>
+                <SearchParamsWrapper onParams={handleSearchParams} />
+         
             <SearchParamsWrapper onParams={handleSearchParams} />
+            </Suspense>
+            
             {showNotificationPopup && selectedTrend && (
                 <NotificationPopup trend={selectedTrend} onClick={handleNotificationClick} />
             )}
