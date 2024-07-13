@@ -163,6 +163,7 @@ const HomePage = () => {
 
     return (
         <div className="overflow-auto h-full">
+            <SearchParamsWrapper onParams={handleSearchParams} />
             {showNotificationPopup && selectedTrend && (
                 <NotificationPopup trend={selectedTrend} onClick={handleNotificationClick} />
             )}
