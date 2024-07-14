@@ -1,4 +1,4 @@
-const ProfileHeader = ({ username, timer, followers }: { username: string, timer: number, followers: number }) => {
+const ProfileHeader = ({ username, timer, followers }: { username: string, timer: String, followers: number }) => {
     const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
         const secs = (seconds % 60).toString().padStart(2, '0');
