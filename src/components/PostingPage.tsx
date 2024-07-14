@@ -1,143 +1,155 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
+import ProfileHeader from '../components/ProfileHeader';
+import PostGrid from '../components/PostGrid';
+import Popup from '../components/Popup';
+import CountDownOverlay from '../components/CountDownOverlay';
+import PopupStartGPT from '../components/PopupStartGPT';
+import SadEmojiPopup from '../components/SadEmojiPopup';
+import NotificationPopup from '../components/NotificationPopup';
+import LastPopup from '../components/LastPopup';
 import { useFollowers } from '@/context/FollowerContext';
+import SearchParamsWrapper from '@/components/SearchParamsWrapper';
 
-const PostingPage = ({ profileImage }: { profileImage: string }) => {
-    const { followers } = useFollowers();
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [timer, setTimer] = useState(180); // 3분 타이머 (초)
-    const [postText, setPostText] = useState(''); // input 값을 관리할 상태
-    const [error, setError] = useState<string | null>(null); // 오류 메시지 상태
-    const [isValid, setIsValid] = useState(false); // 포스팅 가능 여부
+const HomePage = () => {
+    const [activePopup, setActivePopup] = useState<string>('initial');
+    const [username, setUsername] = useState('100만 인플루언서');
+    const { followers, setFollowers } = useFollowers();
+    const [displayFollowers, setDisplayFollowers] = useState(followers);
+    const [timer, setTimer] = useState(180);
+    const [posts, setPosts] = useState<{ image: string; text: string }[]>([]);
+    const [selectedTrend, setSelectedTrend] = useState<string>('');
     const router = useRouter();
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(event.target.files[0]));
-        }
-    };
-
-    const handleImageClick = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
-        }
-    };
-
-    const validatePost = () => {
-        const hashtags = postText.match(/#\S+/g);
-        if (!selectedImage) {
-            setError("사진을 선택해주세요.");
-            setIsValid(false);
-            return;
-        }
-        if (postText.length < 100) {
-            setError("글자가 100자 이상이어야 합니다.");
-            setIsValid(false);
-            return;
-        }
-        if (!hashtags || hashtags.length < 5) {
-            setError("해시태그가 5개 이상이어야 합니다.");
-            setIsValid(false);
-            return;
-        }
-        setError(null);
-        setIsValid(true);
-    };
-
-    const handlePost = () => {
-        if (isValid) {
-            const newPost = {
-                image: selectedImage,
-                text: postText,
-            };
-            // 로컬 스토리지에 포스트 저장
-            const existingPosts = JSON.parse(localStorage.getItem('posts') || '[]');
-            const updatedPosts = [...existingPosts, newPost];
-            localStorage.setItem('posts', JSON.stringify(updatedPosts));
-            // HomePage로 이동하면서 showHearts 상태를 전달
-            router.push('/?PopupStartGPT=true');
-        }
-    };
 
     useEffect(() => {
-        validatePost();
-    }, [postText, selectedImage]);
+        const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+        setPosts(savedPosts);
 
-    useEffect(() => {
-        const timerInterval = setInterval(() => {
-            setTimer((prevTimer) => {
-                if (prevTimer <= 1) {
-                    clearInterval(timerInterval);
-                    return 0;
-                }
-                return prevTimer - 1;
-            });
-        }, 1000);
-
-        return () => {
-            clearInterval(timerInterval);
-        };
+        const gptPopupShownFromLocalStorage = localStorage.getItem('gptPopupShown');
+        const lastPopupShownFromLocalStorage = localStorage.getItem('lastPopupShown');
+        
+        if (gptPopupShownFromLocalStorage) {
+            setActivePopup(lastPopupShownFromLocalStorage ? '' : 'last');
+        } else {
+            setActivePopup('initial');
+        }
     }, []);
 
+    const handleSearchParams = (searchParams: URLSearchParams) => {
+        if (searchParams.get('PopupStartGPT') === 'true') {
+            setActivePopup('afterPost');
+        }
+    };
+
+    const handleClosePopup = () => {
+        setActivePopup('countdown');
+    };
+
+    const handleSetUsername = (username: string) => {
+        setUsername(username);
+    };
+
+    const handleCountdownComplete = () => {
+        setActivePopup('sad');
+        startTimer();
+    };
+
+    const startTimer = () => {
+        setTimer(180);
+    };
+
+    const handleCloseSadPopup = () => {
+        setActivePopup('');
+        router.push('/posting');
+    };
+
+    const handleNotificationClick = async () => {
+        setActivePopup('');
+        try {
+            const trendsResponse = await fetch('/api/trends');
+            const trendsData = await trendsResponse.json();
+            const topic = trendsData.trends[0];
+
+            const response = await fetch(`/api/generate-post?topic=${encodeURIComponent(topic)}`, {
+                method: 'GET',
+            });
+
+            const data = await response.json();
+            const { text } = data;
+
+            const imageResponse = await fetch(`/api/fetch-image?keyword=${encodeURIComponent(topic)}`, {
+                method: 'GET',
+            });
+
+            const imageData = await imageResponse.json();
+            const postImage = imageData.hits[0].webformatURL;
+
+            router.push(`/posting?image=${encodeURIComponent(postImage)}&text=${encodeURIComponent(text)}`);
+        } catch (error) {
+            console.error('포스트 생성 중 오류 발생:', error);
+        }
+    };
+
+    const handlePopupStartGPTClose = () => {
+        localStorage.setItem('gptPopupShown', 'true');
+        fetch('/api/trends')
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.trends.length > 0) {
+                    setSelectedTrend(data.trends[0]);
+                }
+                setActivePopup('notification');
+            })
+            .catch((error) => console.error('트렌드 가져오기 중 오류 발생:', error));
+    };
+
+    const handleLastPopupClose = () => {
+        localStorage.setItem('lastPopupShown', 'true');
+        setActivePopup('');
+    };
+
+    useEffect(() => {
+        let timerInterval: NodeJS.Timeout;
+        if (timer > 0 && activePopup === '') {
+            timerInterval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        }
+
+        return () => {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        };
+    }, [timer, activePopup]);
+
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        return `${minutes}:${secs}`;
+    };
+
     return (
-        <div className="relative w-[375px] h-[667px] bg-yellow-100 shadow-lg mx-auto p-4 flex flex-col items-center">
-            <div className="flex justify-between w-full mb-4">
-                <div className="flex items-center">
-                    <img
-                        src={profileImage}
-                        alt="Profile"
-                        className="w-10 h-10 rounded-full object-cover mr-2"
-                    />
-                    <span className="font-bold">{followers.toLocaleString()}</span> Followers
-                </div>
-                <div className="text-right font-mono">{new Date(timer * 1000).toISOString().substr(14, 5)}</div>
-            </div>
-            <div
-                className="w-full h-[300px] border border-black flex items-center justify-center cursor-pointer"
-                onClick={handleImageClick}
-            >
-                {selectedImage ? (
-                    <img src={selectedImage} alt="Selected" className="w-full h-full object-cover" />
-                ) : (
-                    <div className="bg-gray-200 p-2 rounded shadow-md">사진 고르기</div>
-                )}
-                <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleImageChange}
-                    className="hidden"
-                />
-            </div>
-            <div className="flex justify-between w-full my-4 px-4">
-                <div className="flex space-x-4">
-                    <span className="text-2xl">❤️</span>
-                    <span className="text-2xl">💬</span>
-                    <span className="text-2xl">✈️</span>
-                </div>
-                <div>
-                    <span className="text-2xl">🔖</span>
-                </div>
-            </div>
-            <textarea
-                className="w-full p-2 flex-grow border-none bg-transparent focus:outline-none"
-                placeholder="123.abc 여기를 터치해서 포스팅을 작성해주세요."
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-                rows={8}
-            />
-            {error && <p className="text-red-500 mt-2">{error}</p>}
-            <button
-                className={`mt-2 bg-blue-500 text-white py-2 px-4 rounded shadow-md w-full ${isValid ? '' : 'opacity-50 cursor-not-allowed'}`}
-                onClick={handlePost}
-                disabled={!isValid}
-            >
-                포스팅 하기
-            </button>
+        <div className="overflow-auto h-full">
+            <Suspense fallback={<div>로딩 중...</div>}>
+                <SearchParamsWrapper onParams={handleSearchParams} />
+            </Suspense>
+            {activePopup === 'notification' && selectedTrend && (
+                <NotificationPopup trend={selectedTrend} onClick={handleNotificationClick} />
+            )}
+            {activePopup === 'initial' && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
+            {activePopup === 'countdown' && <CountDownOverlay onComplete={handleCountdownComplete} />}
+            {activePopup === 'sad' && <SadEmojiPopup onClose={handleCloseSadPopup} />}
+            {activePopup === 'afterPost' && !localStorage.getItem('gptPopupShown') && (
+                <PopupStartGPT onClose={handlePopupStartGPTClose} />
+            )}
+            {activePopup === 'last' && <LastPopup onClose={handleLastPopupClose} />}
+            <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
+            <PostGrid posts={posts} />
         </div>
     );
 };
 
-export default PostingPage;
+export default HomePage;
