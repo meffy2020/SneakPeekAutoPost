@@ -1,11 +1,12 @@
 'use client';
-
+// HomePage.tsx
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import ProfileHeader from '../components/ProfileHeader';
 import PostGrid from '../components/PostGrid';
 import Popup from '../components/Popup';
 import CountDownOverlay from '../components/CountDownOverlay';
+import HeartAnimation from '../components/HeartAnimation';
 import PopupStartGPT from '../components/PopupStartGPT';
 import SadEmojiPopup from '../components/SadEmojiPopup';
 import NotificationPopup from '../components/NotificationPopup';
@@ -14,11 +15,17 @@ import { useFollowers } from '@/context/FollowerContext';
 import SearchParamsWrapper from '@/components/SearchParamsWrapper';
 
 const HomePage = () => {
-    const [activePopup, setActivePopup] = useState<string>('initial');
+    const [showPopup, setShowPopup] = useState(true);
+    const [showCountdown, setShowCountdown] = useState(false);
+    const [showHearts, setShowHearts] = useState(false);
+    const [showSadPopup, setShowSadPopup] = useState(false);
+    const [showPopupAfterPost, setShowPopupAfterPost] = useState(false);
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showLastPopup, setShowLastPopup] = useState(false);
     const [username, setUsername] = useState('100만 인플루언서');
     const { followers, setFollowers } = useFollowers();
     const [displayFollowers, setDisplayFollowers] = useState(followers);
-    const [timer, setTimer] = useState(180);
+    const [timer, setTimer] = useState(180); // 3분 타이머 (초)
     const [posts, setPosts] = useState<{ image: string; text: string }[]>([]);
     const [selectedTrend, setSelectedTrend] = useState<string>('');
     const router = useRouter();
@@ -29,20 +36,32 @@ const HomePage = () => {
 
         const gptPopupShownFromLocalStorage = localStorage.getItem('gptPopupShown');
         if (gptPopupShownFromLocalStorage) {
-            setActivePopup('');
-        } else {
-            setActivePopup('initial');
+            setShowPopupAfterPost(false);
         }
     }, []);
 
     const handleSearchParams = (searchParams: URLSearchParams) => {
-        if (searchParams.get('PopupStartGPT') === 'true') {
-            setActivePopup('afterPost');
+        if (searchParams.get('showHearts') === 'true') {
+            setShowPopup(false);
+            setShowHearts(true);
+            setTimeout(() => {
+                setShowHearts(false);
+                if (!localStorage.getItem('gptPopupShown')) {
+                    setShowPopupAfterPost(true);
+                } else {
+                    setShowLastPopup(true);
+                }
+            }, 5000);
+        }
+
+        if (searchParams.get('LastPopup') === 'true') {
+            setShowLastPopup(true);
         }
     };
 
     const handleClosePopup = () => {
-        setActivePopup('countdown');
+        setShowPopup(false);
+        setShowCountdown(true);
     };
 
     const handleSetUsername = (username: string) => {
@@ -50,8 +69,28 @@ const HomePage = () => {
     };
 
     const handleCountdownComplete = () => {
-        setActivePopup('sad');
-        startTimer();
+        setShowCountdown(false);
+        setShowHearts(true);
+        let increment = 7573;
+        let targetFollowers = displayFollowers + 7573 * 5; // 팔로워 5회 증가
+        let currentFollowers = displayFollowers;
+
+        const interval = setInterval(() => {
+            currentFollowers += increment;
+            if (currentFollowers >= targetFollowers) {
+                currentFollowers = targetFollowers;
+                clearInterval(interval);
+            }
+            setDisplayFollowers(currentFollowers);
+        }, 1000); // 1초마다 팔로워 증가
+
+        setTimeout(() => {
+            clearInterval(interval);
+            setShowHearts(false);
+            setShowSadPopup(true);
+            setFollowers(targetFollowers); // 실제 팔로워 수를 업데이트
+            startTimer();
+        }, 5000); // 5초 후에 인터벌 클리어
     };
 
     const startTimer = () => {
@@ -59,12 +98,12 @@ const HomePage = () => {
     };
 
     const handleCloseSadPopup = () => {
-        setActivePopup('');
+        setShowSadPopup(false);
         router.push('/posting');
     };
 
     const handleNotificationClick = async () => {
-        setActivePopup('');
+        setShowNotificationPopup(false);
         try {
             const trendsResponse = await fetch('/api/trends');
             const trendsData = await trendsResponse.json();
@@ -84,13 +123,15 @@ const HomePage = () => {
             const imageData = await imageResponse.json();
             const postImage = imageData.hits[0].webformatURL;
 
-            router.push(`/posting?image=${encodeURIComponent(postImage)}&text=${encodeURIComponent(text)}`);
+            // 포스팅 페이지로 이동하면서 이미지와 텍스트를 쿼리 파라미터로 전달
+            router.push(`/auto-posting?image=${encodeURIComponent(postImage)}&text=${encodeURIComponent(text)}`);
         } catch (error) {
-            console.error('포스트 생성 중 오류 발생:', error);
+            console.error('Error generating post:', error);
         }
     };
 
     const handlePopupStartGPTClose = () => {
+        setShowPopupAfterPost(false);
         localStorage.setItem('gptPopupShown', 'true');
         fetch('/api/trends')
             .then((res) => res.json())
@@ -98,14 +139,14 @@ const HomePage = () => {
                 if (data.trends.length > 0) {
                     setSelectedTrend(data.trends[0]);
                 }
-                setActivePopup('notification');
+                setShowNotificationPopup(true);
             })
-            .catch((error) => console.error('트렌드 가져오기 중 오류 발생:', error));
+            .catch((error) => console.error('Error fetching trends:', error));
     };
 
     useEffect(() => {
         let timerInterval: NodeJS.Timeout;
-        if (timer > 0 && activePopup === '') {
+        if (timer > 0 && !showPopup && !showCountdown && !showSadPopup && !showPopupAfterPost) {
             timerInterval = setInterval(() => {
                 setTimer((prevTimer) => prevTimer - 1);
             }, 1000);
@@ -116,7 +157,7 @@ const HomePage = () => {
                 clearInterval(timerInterval);
             }
         };
-    }, [timer, activePopup]);
+    }, [timer, showPopup, showCountdown, showSadPopup, showPopupAfterPost]);
 
     const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -129,20 +170,23 @@ const HomePage = () => {
             <Suspense fallback={<div>로딩 중...</div>}>
                 <SearchParamsWrapper onParams={handleSearchParams} />
             </Suspense>
-            {activePopup === 'notification' && selectedTrend && (
+            {showNotificationPopup && selectedTrend && (
                 <NotificationPopup trend={selectedTrend} onClick={handleNotificationClick} />
             )}
-            {activePopup === 'initial' && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
-            {activePopup === 'countdown' && <CountDownOverlay onComplete={handleCountdownComplete} />}
-            {activePopup === 'sad' && <SadEmojiPopup onClose={handleCloseSadPopup} />}
-            {activePopup === 'afterPost' && !localStorage.getItem('gptPopupShown') && (
+            {showPopup && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
+            {showCountdown && <CountDownOverlay onComplete={handleCountdownComplete} />}
+            {showHearts && <HeartAnimation onComplete={() => setShowHearts(false)} />}
+            {showSadPopup && <SadEmojiPopup onClose={handleCloseSadPopup} />}
+            {showPopupAfterPost && !localStorage.getItem('gptPopupShown') && (
                 <PopupStartGPT onClose={handlePopupStartGPTClose} />
             )}
-            {activePopup === 'last' && <LastPopup />}
-            <ProfileHeader username={username} timer={formatTime(timer)} followers={displayFollowers} />
+
+            {showLastPopup && <LastPopup />}
+            
+            <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
             <PostGrid posts={posts} />
         </div>
     );
 };
 
-export default HomePage;  
+export default HomePage;

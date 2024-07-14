@@ -59,7 +59,7 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
             const updatedPosts = [...existingPosts, newPost];
             localStorage.setItem('posts', JSON.stringify(updatedPosts));
             // HomePage로 이동하면서 showHearts 상태를 전달
-            router.push('/?showHearts=true');
+            router.push('/?LastPopup=true');
         }
     };
 
