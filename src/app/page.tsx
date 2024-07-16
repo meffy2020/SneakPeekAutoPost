@@ -128,7 +128,7 @@ const HomePage = () => {
             let postImage;
             if (!imageData.hits || imageData.hits.length === 0) {
                 // 기본 이미지를 설정
-                postImage = 'public\NotKeyword.png'; // 기본 이미지 경로를 설정하세요
+                postImage = '/NotKeyword.png';// 기본 이미지 경로를 설정하세요
                 console.warn('No image found for the given keyword, using default image.');
             } else {
                 postImage = imageData.hits[0].webformatURL;

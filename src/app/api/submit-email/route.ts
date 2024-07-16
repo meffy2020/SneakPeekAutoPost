@@ -1,18 +1,15 @@
-/**
-  import { google } from 'googleapis';
+import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
+import { JWT } from 'google-auth-library';
 
 const sheets = google.sheets('v4');
-
-// Base64로 인코딩된 GOOGLE_PRIVATE_KEY를 디코딩
-const privateKey = process.env.GOOGLE_PRIVATE_KEY ? Buffer.from(process.env.GOOGLE_PRIVATE_KEY, 'base64').toString('utf-8') : undefined;
 
 const auth = new google.auth.GoogleAuth({
     credentials: {
         type: 'service_account',
         project_id: process.env.GOOGLE_PROJECT_ID,
         private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-        private_key: privateKey,
+        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         client_id: process.env.GOOGLE_CLIENT_ID,
     },
@@ -21,17 +18,20 @@ const auth = new google.auth.GoogleAuth({
 
 export async function POST(req: NextRequest) {
     try {
+        // 환경 변수 출력 (필요한 경우에만 사용하고 보안에 유의하세요)
+       
+
         const { email } = await req.json();
-        
+
         if (!email) {
             return NextResponse.json({ error: 'Email is required' }, { status: 400 });
         }
 
-        const client = await auth.getClient();
-        google.options({ auth: client });
+        const client = await auth.getClient() as JWT;
+        google.options({ auth: client }); // 전역적으로 인증 객체 설정
 
-        const spreadsheetId = 'your_spreadsheet_id'; // Replace with your spreadsheet ID
-        const range = 'Sheet1!A:A'; // Replace with your sheet name and range
+        const spreadsheetId = '16HbTz9p7e62GGhpG-zRv6LyL0nac6SA9FxXWbjJoLZ8'; // Provided spreadsheet ID
+        const range = 'Sheet1!A:A'; // Replace with your sheet name and range, assuming default is 'Sheet1'
         const valueInputOption = 'RAW';
 
         await sheets.spreadsheets.values.append({
@@ -50,5 +50,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-
-    */
+export async function GET(req: NextRequest) {
+    return NextResponse.json({ message: 'GET method not allowed' }, { status: 405 });
+}
