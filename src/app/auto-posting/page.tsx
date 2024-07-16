@@ -1,21 +1,14 @@
 'use client';
 
 import { Suspense } from 'react';
-import AutoPostingPage from '../../components/AutoPostingPage';
+import AutoPostingPageWrapper from '../../components/AutoPostingPagewrapper';
 
 const Posting = () => {
-    const profileImage = '/profile-pic.png'; // ProfileHeader에서 사용된 이미지와 동일한 URL
-
     return (
-    
-    <Suspense>
-    <AutoPostingPage profileImage={profileImage} />;
-
-    </Suspense>
-    
-
-
-)
+        <Suspense fallback={<div>Loading...</div>}>
+            <AutoPostingPageWrapper />
+        </Suspense>
+    );
 };
 
 export default Posting;

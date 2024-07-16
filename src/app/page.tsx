@@ -48,16 +48,19 @@ const HomePage = () => {
                 setShowHearts(false);
                 if (!localStorage.getItem('gptPopupShown')) {
                     setShowPopupAfterPost(true);
-                } else {
-                    setShowLastPopup(true);
-                }
+                } 
             }, 5000);
         }
-
+    
         if (searchParams.get('LastPopup') === 'true') {
-            setShowLastPopup(true);
+            setShowPopup(false);
+            // showHearts 애니메이션이 끝난 후에 LastPopup을 표시
+            setTimeout(() => {
+                setShowLastPopup(true);
+            }, 5000);
         }
     };
+    
 
     const handleClosePopup = () => {
         setShowPopup(false);
@@ -108,27 +111,39 @@ const HomePage = () => {
             const trendsResponse = await fetch('/api/trends');
             const trendsData = await trendsResponse.json();
             const topic = trendsData.trends[0];
-
+    
             const response = await fetch(`/api/generate-post?topic=${encodeURIComponent(topic)}`, {
                 method: 'GET',
             });
-
+    
             const data = await response.json();
             const { text } = data;
-
+    
             const imageResponse = await fetch(`/api/fetch-image?keyword=${encodeURIComponent(topic)}`, {
                 method: 'GET',
             });
-
+    
             const imageData = await imageResponse.json();
-            const postImage = imageData.hits[0].webformatURL;
-
+            
+            let postImage;
+            if (!imageData.hits || imageData.hits.length === 0) {
+                // 기본 이미지를 설정
+                postImage = 'public\NotKeyword.png'; // 기본 이미지 경로를 설정하세요
+                console.warn('No image found for the given keyword, using default image.');
+            } else {
+                postImage = imageData.hits[0].webformatURL;
+            }
+    
+            console.log('Navigating to auto-posting with', postImage, text); // 디버그 로그 추가
+    
             // 포스팅 페이지로 이동하면서 이미지와 텍스트를 쿼리 파라미터로 전달
             router.push(`/auto-posting?image=${encodeURIComponent(postImage)}&text=${encodeURIComponent(text)}`);
         } catch (error) {
             console.error('Error generating post:', error);
         }
     };
+    
+    
 
     const handlePopupStartGPTClose = () => {
         setShowPopupAfterPost(false);

@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFollowers } from '@/context/FollowerContext';
 
-const PostingPage = ({ profileImage }: { profileImage: string }) => {
+const AutoPostingPage = ({ profileImage, initialImage, initialText }: { profileImage: string, initialImage: string, initialText: string }) => {
     const { followers } = useFollowers();
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(initialImage || null);
     const [timer, setTimer] = useState(180); // 3분 타이머 (초)
-    const [postText, setPostText] = useState(''); // input 값을 관리할 상태
+    const [postText, setPostText] = useState(initialText || ''); // input 값을 관리할 상태
     const [error, setError] = useState<string | null>(null); // 오류 메시지 상태
     const [isValid, setIsValid] = useState(false); // 포스팅 가능 여부
     const router = useRouter();
@@ -140,4 +140,4 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
     );
 };
 
-export default PostingPage;
+export default AutoPostingPage;
