@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import top1 from '../../public/top1.png';
 import top2 from '../../public/top2.png';
-import top3 from '../../public/top3.png';   
+import top3 from '../../public/top3.png';
 
 const ProfileHeader = ({ username, timer, followers }: { username: string, timer: number, followers: number }) => {
     const formatTime = (seconds: number) => {
@@ -12,33 +12,34 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
 
     return (
         <div className="p-4 bg-yellow-100">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-4 ml-4 mr-4">
                 <h1 className="text-2xl font-bold">{username}</h1>
                 <div className="text-lg font-mono">{formatTime(timer)}</div>
             </div>
-            <div className="flex items-center mb-4">
-                <div className="flex-shrink-0 mr-10">
+            <div className="flex items-center ml-3 mb-4">
+                <div className="flex-shrink-0  mr-10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/profile-pic.png"
                         alt="Profile"
                         className="w-16 h-16 rounded-full object-cover"
                     />
                 </div>
-                <div className="flex flex-col justify-center">
-                    <div className="flex space-x-4 mb-2">
-                        <div className="text-center">
+                <div className="flex flex-col justify-center ml-5">
+                    <div className="flex space-x-4 mb-2 ml-6">
+                        <div className="text-center mr-3">
                             <span className="font-bold">1,234</span><br/>Posts
                         </div>
                         <div className="text-center">
                             <span className="font-bold">{followers.toLocaleString()}</span><br/>Followers
                         </div>
-                        <div className="text-center">
+                        <div className="text-center ">
                             <span className="font-bold">1</span><br/>Following
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="text-left">
+            <div className="text-left ml-3 mb-3">
                 <p className="font-bold">100만 인플루언서</p>
                 <p className="text-sm">Influencer</p>
                 <p>Im the best<br/>DM for Collaboration</p>
