@@ -3,6 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFollowers } from '@/context/FollowerContext';
+import icon_heart from '../../public/heart.png';
+import icon_comment from '../../public/comment.png';
+import icon_send from '../../public/send.png';
+import icon_savemark from '../../public/savemark.png';
+import Image from "next/image";
 
 const PostingPage = ({ profileImage }: { profileImage: string }) => {
     const { followers } = useFollowers();
@@ -33,8 +38,8 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
             setIsValid(false);
             return;
         }
-        if (postText.length < 100) {
-            setError("글자가 100자 이상이어야 합니다.");
+        if (postText.length < 50) {
+            setError("글자가 50자 이상이어야 합니다.");
             setIsValid(false);
             return;
         }
@@ -113,12 +118,12 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
             </div>
             <div className="flex justify-between w-full my-4 px-4">
                 <div className="flex space-x-4">
-                    <span className="text-2xl">❤️</span>
-                    <span className="text-2xl">💬</span>
-                    <span className="text-2xl">✈️</span>
+                    <Image src={icon_heart} alt="icon_heart" width={24} height={24} />
+                    <Image src={icon_comment} alt="icon_comment" width={24} height={24} />
+                    <Image src={icon_send} alt="icon_send" width={24} height={24} />
                 </div>
                 <div>
-                    <span className="text-2xl">🔖</span>
+                    <Image src={icon_savemark} alt="Under 5" width={24} height={24} />
                 </div>
             </div>
             <textarea
