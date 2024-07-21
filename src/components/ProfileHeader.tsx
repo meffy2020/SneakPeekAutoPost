@@ -16,8 +16,8 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                 <h1 className="text-2xl font-bold">{username}</h1>
                 <div className="text-lg font-mono">{formatTime(timer)}</div>
             </div>
-            <div className="flex items-center ml-3 mb-4">
-                <div className="flex-shrink-0  mr-10">
+            <div className="flex ml-3 mb-4">
+                <div className="flex-shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/profile-pic.png"
@@ -25,8 +25,8 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                         className="w-16 h-16 rounded-full object-cover"
                     />
                 </div>
-                <div className="flex flex-col justify-center ml-5">
-                    <div className="flex space-x-4 mb-2 ml-6">
+                <div className="flex justify-center ml-5">
+                    <div className="flex space-x-4 mb-2">
                         <div className="text-center mr-3">
                             <span className="font-bold">1,234</span><br/>Posts
                         </div>
