@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 const defaultPosts = [
-    { image: "/post1.png", text: "" },
-    { image: "/post2.png", text: "" },
-    { image: "/post3.png", text: "" },
-    { image: "/post4.png", text: "" },
-    { image: "/post5.png", text: "" },
-    { image: "/post6.png", text: "" },
-    { image: "/post7.png", text: "" },
-    { image: "/post8.png", text: "" },
-    { image: "/post9.png", text: "" },
+    { image: "/Post1.png", text: "" },
+    { image: "/Post2.png", text: "" },
+    { image: "/Post3.png", text: "" },
+    { image: "/Post4.png", text: "" },
+    { image: "/Post5.png", text: "" },
+    { image: "/Post6.png", text: "" },
+    { image: "/Post7.png", text: "" },
+    { image: "/Post8.png", text: "" },
+    { image: "/Post9.png", text: "" },
 ];
 
 interface PostGridProps {
@@ -45,4 +45,3 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 };
 
 export default PostGrid;
-
