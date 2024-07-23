@@ -1,3 +1,5 @@
+// src/components/PostGrid.tsx
+
 import { useEffect, useState } from 'react';
 
 const defaultPosts = [
