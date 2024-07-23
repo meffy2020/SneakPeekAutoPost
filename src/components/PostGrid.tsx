@@ -1,6 +1,7 @@
 // src/components/PostGrid.tsx
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const defaultPosts = [
     { image: "/post1.png", text: "" },
@@ -30,8 +31,13 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
     return (
         <div className="grid grid-cols-3 gap-1">
             {displayedPosts.map((post, index) => (
-                <div key={index} className="relative">
-                    <img src={post.image} alt={`Post ${index + 1}`} className="w-full h-full object-cover" />
+                <div key={index} className="relative w-full h-32">
+                    <Image
+                        src={post.image}
+                        alt={`Post ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                    />
                 </div>
             ))}
         </div>
@@ -39,3 +45,4 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
 };
 
 export default PostGrid;
+
