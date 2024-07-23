@@ -3,8 +3,8 @@ import Navbar from '../components/Navbar';
 import { FollowerProvider } from '@/context/FollowerContext';
 
 export const metadata = {
-    title: 'Instagram Clone',
-    description: 'An Instagram clone built with Next.js, Tailwind CSS, and TypeScript',
+    title: 'Auto Post 체험판',
+    description: '본 서비스를 미리 체험 해 볼 수 있습니다.',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

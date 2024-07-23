@@ -1,3 +1,8 @@
+import Image from 'next/image';
+import top1 from '../../public/top1.png';
+import top2 from '../../public/top2.png';
+import top3 from '../../public/top3.png';   
+
 const ProfileHeader = ({ username, timer, followers }: { username: string, timer: number, followers: number }) => {
     const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -39,9 +44,9 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                 <p>Im the best<br/>DM for Collaboration</p>
             </div>
             <div className="flex justify-around border-t border-gray-300 pt-2">
-                <span className="text-2xl">📷</span>
-                <span className="text-2xl text-gray-400">🎥</span>
-                <span className="text-2xl text-gray-400">👤</span>
+                <Image src={top1} alt="Top 1" width={24} height={24} />
+                <Image src={top2} alt="Top 2" width={24} height={24} />
+                <Image src={top3} alt="Top 3" width={24} height={24} />
             </div>
         </div>
     );
