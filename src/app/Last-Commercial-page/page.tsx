@@ -49,7 +49,7 @@ const NewPage: React.FC = () => {
                 <div className="text-6xl">💝</div>
                 <p className="text-xl mt-4">당신을 위해 준비한 선물 2</p>
                 <p className="mt-2">Auto Post 팔로우 하고 Auto Post 얼리버드 할인권 받자!</p>
-                <a href="https://www.instagram.com/extraedge_official/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/extraedge_official" target="_blank" rel="noopener noreferrer">
                     <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">팔로우 하러가기</button>
                 </a>
             </div>

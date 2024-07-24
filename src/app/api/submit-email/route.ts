@@ -18,9 +18,6 @@ const auth = new google.auth.GoogleAuth({
 
 export async function POST(req: NextRequest) {
     try {
-        // 환경 변수 출력 (필요한 경우에만 사용하고 보안에 유의하세요)
-       
-
         const { email } = await req.json();
 
         if (!email) {
@@ -28,13 +25,14 @@ export async function POST(req: NextRequest) {
         }
 
         const client = await auth.getClient() as JWT;
-        google.options({ auth: client }); // 전역적으로 인증 객체 설정
+        google.options({ auth: client });
 
-        const spreadsheetId = '16HbTz9p7e62GGhpG-zRv6LyL0nac6SA9FxXWbjJoLZ8'; // Provided spreadsheet ID
-        const range = 'Sheet1!A:A'; // Replace with your sheet name and range, assuming default is 'Sheet1'
+        const spreadsheetId = '16HbTz9p7e62GGhpG-zRv6LyL0nac6SA9FxXWbjJoLZ8';
+        const range = 'Sheet1!A:A';
         const valueInputOption = 'RAW';
 
         await sheets.spreadsheets.values.append({
+            auth: client,
             spreadsheetId,
             range,
             valueInputOption,
@@ -50,6 +48,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     return NextResponse.json({ message: 'GET method not allowed' }, { status: 405 });
 }
