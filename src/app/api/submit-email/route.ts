@@ -4,14 +4,13 @@ import { JWT } from 'google-auth-library';
 
 const sheets = google.sheets('v4');
 
-const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-
+const creds = JSON.parse(process.env.GOOGLE_PRIVATE_KEY!);
 const auth = new google.auth.GoogleAuth({
     credentials: {
         type: 'service_account',
         project_id: process.env.GOOGLE_PROJECT_ID,
         private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-        private_key: privateKey,
+        private_key: creds.privateKey.replace(/\\n/g, '\n'),
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         client_id: process.env.GOOGLE_CLIENT_ID,
     },
