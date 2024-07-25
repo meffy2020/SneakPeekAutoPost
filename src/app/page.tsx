@@ -73,14 +73,14 @@ const HomePage = () => {
 
     const handleCountdownComplete = () => {
         setShowCountdown(false);
-        setShowHearts(true);
+        // setShowHearts(true); // 하트애니메이션 실행
         let increment = 7573;
-        let targetFollowers = displayFollowers + 7573 * 5; // 팔로워 5회 증가
+        let targetFollowers = displayFollowers - 7573 * 5; // 팔로워 5회 증가
         let currentFollowers = displayFollowers;
 
         const interval = setInterval(() => {
-            currentFollowers += increment;
-            if (currentFollowers >= targetFollowers) {
+            currentFollowers -= increment;
+            if (currentFollowers <= targetFollowers) {
                 currentFollowers = targetFollowers;
                 clearInterval(interval);
             }
@@ -89,7 +89,7 @@ const HomePage = () => {
 
         setTimeout(() => {
             clearInterval(interval);
-            setShowHearts(false);
+            // setShowHearts(false); // 하트애니메이션 멈춤
             setShowSadPopup(true);
             setFollowers(targetFollowers); // 실제 팔로워 수를 업데이트
             startTimer();
