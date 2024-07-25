@@ -6,8 +6,6 @@ const sheets = google.sheets('v4');
 
 const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
 
-console.log('privateKey:', privateKey);
-
 const auth = new google.auth.GoogleAuth({
     credentials: {
         type: 'service_account',
@@ -19,8 +17,6 @@ const auth = new google.auth.GoogleAuth({
     },
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
-
-
 
 export async function POST(req: NextRequest) {
     try {
