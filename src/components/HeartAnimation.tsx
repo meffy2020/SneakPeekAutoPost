@@ -35,7 +35,7 @@ const HeartAnimation = ({ onComplete }: { onComplete: () => void }) => {
                             fontSize: `${Math.random() * 2 + 1}rem`,
                         }}
                     >
-                        ❤️
+                        🖤
                     </div>
                 ))}
             </div>
