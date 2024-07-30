@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="delete shodow (Navbar)">
+    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="검정색 하트로 바꾸기">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupStartGPT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupStartGPT.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostGrid.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +72,7 @@
       <workItem from="1721560781778" duration="6325000" />
       <workItem from="1721741153336" duration="167000" />
       <workItem from="1721741323877" duration="13396000" />
-      <workItem from="1722270679126" duration="12914000" />
+      <workItem from="1722270679126" duration="16782000" />
     </task>
     <task id="LOCAL-00001" summary="맨처음 팔로워 줄어들게, 100-&gt;50자">
       <option name="closed" value="true" />
@@ -157,7 +154,31 @@
       <option name="project" value="LOCAL" />
       <updated>1722320367661</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="delete shodow (Navbar)">
+      <option name="closed" value="true" />
+      <created>1722342682309</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1722342682309</updated>
+    </task>
+    <task id="LOCAL-00012" summary="create desktop-layout left section">
+      <option name="closed" value="true" />
+      <created>1722342899871</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1722342899871</updated>
+    </task>
+    <task id="LOCAL-00013" summary="검정색 하트로 바꾸기">
+      <option name="closed" value="true" />
+      <created>1722346473257</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1722346473257</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +207,8 @@
     <MESSAGE value="프로필 사진 바꾸기" />
     <MESSAGE value="add spotlight (ProfileHeader)" />
     <MESSAGE value="delete shodow (Navbar)" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete shodow (Navbar)" />
+    <MESSAGE value="create desktop-layout left section" />
+    <MESSAGE value="검정색 하트로 바꾸기" />
+    <option name="LAST_COMMIT_MESSAGE" value="검정색 하트로 바꾸기" />
   </component>
 </project>
