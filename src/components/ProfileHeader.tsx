@@ -2,6 +2,7 @@ import Image from 'next/image';
 import top1 from '../../public/top1.png';
 import top2 from '../../public/top2.png';
 import top3 from '../../public/top3.png';
+import spotlight from '../../public/spotlight.gif';
 
 const ProfileHeader = ({ username, timer, followers }: { username: string, timer: number, followers: number }) => {
     const formatTime = (seconds: number) => {
@@ -30,8 +31,9 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                         <div className="text-center mr-3">
                             <span className="font-bold">1,234</span><br/>Posts
                         </div>
-                        <div className="text-center">
-                            <span className="font-bold">{followers.toLocaleString()}</span><br/>Followers
+                        <div className="relative text-center">
+                            <Image src={spotlight} alt="spotLight" className="absolute inset-x-0 z-0 bottom-10 w-auto mx-auto object-contain"/>
+                            <span className="font-bold z-10 relative">{followers.toLocaleString()}</span><br/>Followers
                         </div>
                         <div className="text-center ">
                             <span className="font-bold">1</span><br/>Following
