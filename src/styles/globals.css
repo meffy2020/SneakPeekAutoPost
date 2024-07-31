@@ -1,6 +1,18 @@
+/* src/styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 로컬 폰트 가져오기 */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400 700;
+  src: url('/fonts/PretendardVariable.woff2') format('woff2');
+}
+
+body {
+  @apply font-sans;
+}
 
 @keyframes float {
   0% {
@@ -15,10 +27,6 @@
     opacity: 0;
   }
 }
-
-/*.animate-float {*/
-/*  animation: float 4s linear infinite;*/
-/*}*/
 
 .animate-heart {
   animation: heart linear infinite;
@@ -39,46 +47,3 @@
   animation: heart linear infinite;
 }
 
-@media (min-width: 1024px) {
-  .desktop-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .title-section {
-    width: 30%;
-    text-align: left;
-    padding: 20px;
-  }
-
-  .webapp-section {
-    width: 40%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 1023px) {
-  .title-section {
-    display: none;
-  }
-
-  .webapp-section {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
-.navbar-wrapper {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}

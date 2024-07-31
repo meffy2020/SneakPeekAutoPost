@@ -17,7 +17,7 @@ const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-console.log('GOOGLE_PRIVATE_KEY:', creds.privateKey.replace(/\\n/g, '\n'));
+
 
 
 export async function POST(req: NextRequest) {

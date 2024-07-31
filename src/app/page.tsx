@@ -13,6 +13,7 @@ import NotificationPopup from '../components/NotificationPopup';
 import LastPopup from '../components/LastPopup';
 import { useFollowers } from '@/context/FollowerContext';
 import SearchParamsWrapper from '@/components/SearchParamsWrapper';
+import Navbar from '../components/Navbar';
 
 const HomePage = () => {
     const [showPopup, setShowPopup] = useState(true);
@@ -31,6 +32,8 @@ const HomePage = () => {
     const router = useRouter();
 
     useEffect(() => {
+
+      
         const savedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
         setPosts(savedPosts);
 
@@ -40,6 +43,14 @@ const HomePage = () => {
         }
     }, []);
 
+
+    const clearLocalStorage = () => {   
+        if(typeof window !== 'undefined') {
+            localStorage.clear();
+        }       
+    };
+
+    
     const handleSearchParams = (searchParams: URLSearchParams) => {
         if (searchParams.get('showHearts') === 'true') {
             setShowPopup(false);
@@ -200,6 +211,7 @@ const HomePage = () => {
             
             <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
             <PostGrid posts={posts} />
+            <Navbar/>
         </div>
     );
 };

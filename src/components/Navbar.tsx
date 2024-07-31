@@ -9,7 +9,8 @@ import under5 from '../../public/under5.png';
 
 const Navbar = () => {
     return (
-        <nav className="bg-yellow-100 p-4 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[450px] flex justify-around items-center">
+        <nav className="bg-yellow-100 p-4 w-full max-w-[450px] flex justify-around items-center mx-auto">
+
             <Image src={under1} alt="Under 1" width={24} height={24} />
             <Image src={under2} alt="Under 2" width={24} height={24} />
             <Image src={under3} alt="Under 3" width={24} height={24} />

@@ -15,7 +15,7 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
         <div className="p-4 bg-yellow-100">
             <div className="flex justify-between items-center mb-4 ml-4 mr-4">
                 <h1 className="text-2xl font-bold">{username}</h1>
-                <div className="text-lg font-mono">{formatTime(timer)}</div>
+                <div className="text-lg ">{formatTime(timer)}</div>
             </div>
             <div className="flex ml-3 mb-4">
                 <div className="flex-shrink-0">
@@ -43,8 +43,8 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
             </div>
             <div className="text-left ml-3 mb-3">
                 <p className="font-bold">100만 인플루언서</p>
-                <p className="text-sm">Influencer</p>
-                <p>Im the best<br/>DM for Collaboration</p>
+                <p className="text-medium">Auto-Post</p>
+                <p>Trial account<br/>DM for Collaboration</p>
             </div>
             <div className="flex justify-around border-t border-gray-300 pt-2">
                 <Image src={top1} alt="Top 1" width={24} height={24} />
