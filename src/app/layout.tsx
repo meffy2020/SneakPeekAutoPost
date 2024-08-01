@@ -1,6 +1,5 @@
 // src/layout.tsx
 import '../styles/globals.css';
-import Navbar from '../components/Navbar';
 import { FollowerProvider } from '@/context/FollowerContext';
 import qr_SneakPeak from '../../public/QR.png';
 
@@ -29,7 +28,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
 
             {/* 오른쪽 섹션 */}
-            <div className="flex flex-col justify-center p-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
+            <div className="flex flex-col justify-center p-4 w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
               <main className="overflow-auto h-full">{children}</main>
             </div>
           </div>

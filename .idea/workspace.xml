@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="PopupStartGPT.tsx 글 바꾸기">
+    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="edit p-8 -&gt; p-4 (layout)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProfileHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
       <workItem from="1721741153336" duration="167000" />
       <workItem from="1721741323877" duration="13396000" />
       <workItem from="1722270679126" duration="18095000" />
-      <workItem from="1722474856635" duration="611000" />
+      <workItem from="1722474856635" duration="1453000" />
     </task>
     <task id="LOCAL-00001" summary="맨처음 팔로워 줄어들게, 100-&gt;50자">
       <option name="closed" value="true" />
@@ -186,7 +186,23 @@
       <option name="project" value="LOCAL" />
       <updated>1722346572053</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="웹앱 padding 4 삭제">
+      <option name="closed" value="true" />
+      <created>1722475654383</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1722475654383</updated>
+    </task>
+    <task id="LOCAL-00016" summary="insert pt-3 (postgrid)">
+      <option name="closed" value="true" />
+      <created>1722476307032</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1722476307032</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,6 +234,9 @@
     <MESSAGE value="create desktop-layout left section" />
     <MESSAGE value="검정색 하트로 바꾸기" />
     <MESSAGE value="PopupStartGPT.tsx 글 바꾸기" />
-    <option name="LAST_COMMIT_MESSAGE" value="PopupStartGPT.tsx 글 바꾸기" />
+    <MESSAGE value="웹앱 padding 4 삭제" />
+    <MESSAGE value="insert pt-3 (postgrid)" />
+    <MESSAGE value="edit p-8 -&gt; p-4 (layout)" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit p-8 -&gt; p-4 (layout)" />
   </component>
 </project>
