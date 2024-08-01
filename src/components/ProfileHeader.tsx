@@ -12,7 +12,7 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
     };
 
     return (
-        <div className="p-4 bg-yellow-100">
+        <div className="bg-yellow-100">
             <div className="flex justify-between items-center mb-4 ml-4 mr-4">
                 <h1 className="text-2xl font-bold">{username}</h1>
                 <div className="text-lg ">{formatTime(timer)}</div>

@@ -29,7 +29,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts }) => {
     }, [posts]);
 
     return (
-        <div className="p-4 grid grid-cols-3 gap-1">
+        <div className="grid grid-cols-3 gap-1">
             {displayedPosts.map((post, index) => (
                 <div key={index} className="relative w-full h-32">
                     <Image
