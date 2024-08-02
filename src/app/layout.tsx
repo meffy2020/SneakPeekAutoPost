@@ -15,7 +15,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <FollowerProvider>
           <div className="w-full max-w-7xl h-screen bg-yellow-100 shadow-lg overflow-hidden flex">
             {/* 왼쪽 섹션 */}
-            <div className="hidden md:flex flex-col justify-center p-8 md:w-1/2 lg:w-1/2 xl:w-1/2">
+            <div className="hidden md:flex flex-col justify-center items-end p-8 md:w-1/2 lg:w-1/2 xl:w-1/2 pr-8">
               <h1 className="text-5xl font-bold">AutoPost</h1>
               <p className="text-3xl mt-4">Your automated posting solution</p>
               <div className="mt-8">
@@ -28,8 +28,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
 
             {/* 오른쪽 섹션 */}
-            <div className="flex flex-col justify-center p-4 w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-              <main className="overflow-auto h-full">{children}</main>
+            <div className="flex flex-col justify-center p-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 max-w-md mx-auto shadow-lg my-8 mr-12">
+              <main className="w-full h-full">{children}</main>
             </div>
           </div>
         </FollowerProvider>

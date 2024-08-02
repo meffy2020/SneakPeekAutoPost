@@ -1,5 +1,5 @@
 'use client';
-// HomePage.tsx
+// src/app/Page.tsx
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import ProfileHeader from '../components/ProfileHeader';
