@@ -192,22 +192,10 @@ const HomePage = () => {
     };
 
     return (
+        
         <div className="overflow-auto h-full">
-            <Suspense fallback={<div>로딩 중...</div>}>
-                <SearchParamsWrapper onParams={handleSearchParams} />
-            </Suspense>
-            {showNotificationPopup && selectedTrend && (
-                <NotificationPopup trend={selectedTrend} onClick={handleNotificationClick} />
-            )}
-            {showPopup && <Popup onClose={handleClosePopup} onSetUsername={handleSetUsername} />}
-            {showCountdown && <CountDownOverlay onComplete={handleCountdownComplete} />}
-            {showHearts && <HeartAnimation onComplete={() => setShowHearts(false)} />}
-            {showSadPopup && <SadEmojiPopup onClose={handleCloseSadPopup} />}
-            {showPopupAfterPost && !localStorage.getItem('gptPopupShown') && (
-                <PopupStartGPT onClose={handlePopupStartGPTClose} />
-            )}
 
-            {showLastPopup && <LastPopup />}
+           
             
             <ProfileHeader username={username} timer={timer} followers={displayFollowers} />
             <PostGrid posts={posts} />

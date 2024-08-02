@@ -15,21 +15,30 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <FollowerProvider>
           <div className="w-full max-w-7xl h-screen bg-yellow-100 shadow-lg overflow-hidden flex">
             {/* 왼쪽 섹션 */}
-            <div className="hidden md:flex flex-col justify-center items-end p-8 md:w-1/2 lg:w-1/2 xl:w-1/2 pr-8">
-              <h1 className="text-5xl font-bold">AutoPost</h1>
-              <p className="text-3xl mt-4">Your automated posting solution</p>
-              <div className="mt-8">
-                <p className="text-lg">모바일로 보고 싶다면?</p>
-                <p className="text-lg">카메라로 우측 QR 코드를 찍어보세요 📸</p>
-                <div className="flex items-center justify-center mt-4">
-                  <img src={qr_SneakPeak.src} alt="qr_SneakPeak" className="w-30 h-30" />
-                </div>
-              </div>
-            </div>
+          
+  
+            
+           
+<div className="hidden md:flex flex-col justify-center items-end p-8 md:w-1/2 lg:w-1/2 xl:w-1/2 pr-8">
+  <h1 className="text-5xl font-bold">AutoPost</h1>
+  <p className="text-3xl mt-1">Your automated posting solution</p>
+  <div className="flex items-center justify-end w-full mt-8">
+    <div className="text-lg mx-1 ">
+      <p>모바일로 보고 싶다면?</p>
+      <p>카메라로 우측 QR 코드를 찍어보세요</p>
+    </div>
+    <div className="border-l-2 border-black ml-2 h-20"></div> 
+    <div className="flex items-center ml-2 mx-1">
+      <img src={qr_SneakPeak.src} alt="QR SneakPeak" className="w-30 h-30" />
+    </div>
+  </div>
+</div>
+
+
 
             {/* 오른쪽 섹션 */}
-            <div className="flex flex-col justify-center p-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 max-w-md mx-auto shadow-lg my-8 mr-12">
-              <main className="w-full h-full">{children}</main>
+            <div className="flex flex-col justify-center items-center p-0 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 max-w-md mx-auto shadow-lg my-auto">
+                <main className="w-full h-full ">{children}</main>
             </div>
           </div>
         </FollowerProvider>
