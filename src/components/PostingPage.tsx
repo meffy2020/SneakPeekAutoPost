@@ -96,7 +96,9 @@ const PostingPage = ({ profileImage }: { profileImage: string }) => {
                         alt="Profile"
                         className="w-10 h-10 rounded-full object-cover mr-2"
                     />
-                    <span className="font-bold">{followers.toLocaleString()}</span> Followers
+                    <div className="flex flex-col">
+                        <span className="font-bold">{followers.toLocaleString()}</span> Followers
+                    </div>
                 </div>
                 <div className="text-right font-sans">{new Date(timer * 1000).toISOString().substr(14, 5)}</div>
             </div>

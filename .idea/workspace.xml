@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="edit p-8 -&gt; p-4 (layout)">
+    <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="timer font mono -&gt; sans">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostingPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +72,7 @@
       <workItem from="1721741153336" duration="167000" />
       <workItem from="1721741323877" duration="13396000" />
       <workItem from="1722270679126" duration="18095000" />
-      <workItem from="1722474856635" duration="7167000" />
+      <workItem from="1722474856635" duration="7856000" />
     </task>
     <task id="LOCAL-00001" summary="맨처음 팔로워 줄어들게, 100-&gt;50자">
       <option name="closed" value="true" />
@@ -211,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722476480146</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="timer font mono -&gt; sans">
+      <option name="closed" value="true" />
+      <created>1722615403405</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1722615403405</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,6 +253,7 @@
     <MESSAGE value="웹앱 padding 4 삭제" />
     <MESSAGE value="insert pt-3 (postgrid)" />
     <MESSAGE value="edit p-8 -&gt; p-4 (layout)" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit p-8 -&gt; p-4 (layout)" />
+    <MESSAGE value="timer font mono -&gt; sans" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer font mono -&gt; sans" />
   </component>
 </project>
