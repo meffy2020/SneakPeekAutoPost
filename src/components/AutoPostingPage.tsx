@@ -98,7 +98,7 @@ const AutoPostingPage = ({ profileImage, initialImage, initialText }: { profileI
                     />
                     <span className="font-bold">{followers.toLocaleString()}</span> Followers
                 </div>
-                <div className="text-right font-mono">{new Date(timer * 1000).toISOString().substr(14, 5)}</div>
+                <div className="text-right font-sans">{new Date(timer * 1000).toISOString().substr(14, 5)}</div>
             </div>
             <div
                 className="w-full h-[300px] border border-black flex items-center justify-center cursor-pointer"

@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f7dc74e-7871-4c18-b11a-6fcbc80704f1" name="변경" comment="edit p-8 -&gt; p-4 (layout)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AutoPostingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostingPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <workItem from="1721741153336" duration="167000" />
       <workItem from="1721741323877" duration="13396000" />
       <workItem from="1722270679126" duration="18095000" />
-      <workItem from="1722474856635" duration="1453000" />
+      <workItem from="1722474856635" duration="7167000" />
     </task>
     <task id="LOCAL-00001" summary="맨처음 팔로워 줄어들게, 100-&gt;50자">
       <option name="closed" value="true" />
@@ -202,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722476307032</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="edit p-8 -&gt; p-4 (layout)">
+      <option name="closed" value="true" />
+      <created>1722476480146</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1722476480146</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
