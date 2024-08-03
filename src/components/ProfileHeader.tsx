@@ -26,12 +26,12 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                         className="w-16 h-16 rounded-full object-cover"
                     />
                 </div>
-                <div className="flex justify-between flex-grow ml-5">
+                <div className="flex justify-between flex-grow ml-5 mt-3">
                     <div className="text-center">
                         <span className="font-bold">1,234</span><br/>Posts
                     </div>
                     <div className="relative text-center">
-                        <Image src={spotlight} alt="spotLight" className="absolute inset-x-0 z-0 bottom-10 w-auto mx-auto object-contain"/>
+                        <Image src={spotlight} alt="spotLight" className="absolute inset-x-0 z-0 bottom-9 w-auto mx-auto object-contain"/>
                         <span className="font-bold z-10 relative">{followers.toLocaleString()}</span><br/>Followers
                     </div>
                     <div className="text-center ">
