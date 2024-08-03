@@ -14,25 +14,25 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className="bg-yellow-100 flex justify-center items-center min-h-screen font-sans">
         <FollowerProvider>
           <div className="w-full max-w-7xl h-screen bg-yellow-100 shadow-lg overflow-hidden flex">
+
+
+
+
             {/* 왼쪽 섹션 */}
-          
-  
-            
-           
-<div className="hidden md:flex flex-col justify-center items-end p-8 md:w-1/2 lg:w-1/2 xl:w-1/2 pr-8">
-  <h1 className="text-5xl font-bold">AutoPost</h1>
-  <p className="text-3xl mt-1">Your automated posting solution</p>
-  <div className="flex items-center justify-end w-full mt-8">
-    <div className="text-lg mx-1 ">
-      <p>모바일로 보고 싶다면?</p>
-      <p>카메라로 우측 QR 코드를 찍어보세요</p>
-    </div>
-    <div className="border-l-2 border-black ml-2 h-20"></div> 
-    <div className="flex items-center ml-2 mx-1">
-      <img src={qr_SneakPeak.src} alt="QR SneakPeak" className="w-30 h-30" />
-    </div>
-  </div>
-</div>
+            <div className="hidden md:flex flex-col justify-center items-end p-8 md:w-1/2 lg:w-1/2 xl:w-1/2 pr-8">
+              <h1 className="text-5xl font-bold left-0">AutoPost</h1>
+              <p className="text-3xl mt-1">Your automated posting solution</p>
+              <div className="flex items-center justify-end w-full mt-8">
+                <div className="text-lg mx-1 ">
+                  <p>모바일로 보고 싶다면?</p>
+                  <p>카메라로 우측 QR 코드를 찍어보세요</p>
+                </div>
+                <div className="border-l-2 border-black ml-2 h-20"></div>
+                <div className="flex items-center ml-2 mx-1">
+                  <img src={qr_SneakPeak.src} alt="QR SneakPeak" className="w-30 h-30" />
+                </div>
+              </div>
+            </div>
 
 
 

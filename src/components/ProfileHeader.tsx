@@ -13,11 +13,11 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
 
     return (
         <div className="bg-yellow-100">
-            <div className="flex justify-between items-center mb-4 ml-4 mr-4">
+            <div className="flex justify-between items-center m-4">
                 <h1 className="text-2xl font-bold">{username}</h1>
                 <div className="text-lg ">{formatTime(timer)}</div>
             </div>
-            <div className="flex ml-3 mb-4">
+            <div className="flex m-4">
                 <div className="flex-shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -26,18 +26,16 @@ const ProfileHeader = ({ username, timer, followers }: { username: string, timer
                         className="w-16 h-16 rounded-full object-cover"
                     />
                 </div>
-                <div className="flex justify-center ml-5">
-                    <div className="flex space-x-4 mb-2">
-                        <div className="text-center mr-3">
-                            <span className="font-bold">1,234</span><br/>Posts
-                        </div>
-                        <div className="relative text-center">
-                            <Image src={spotlight} alt="spotLight" className="absolute inset-x-0 z-0 bottom-10 w-auto mx-auto object-contain"/>
-                            <span className="font-bold z-10 relative">{followers.toLocaleString()}</span><br/>Followers
-                        </div>
-                        <div className="text-center ">
-                            <span className="font-bold">1</span><br/>Following
-                        </div>
+                <div className="flex justify-between flex-grow ml-5">
+                    <div className="text-center">
+                        <span className="font-bold">1,234</span><br/>Posts
+                    </div>
+                    <div className="relative text-center">
+                        <Image src={spotlight} alt="spotLight" className="absolute inset-x-0 z-0 bottom-10 w-auto mx-auto object-contain"/>
+                        <span className="font-bold z-10 relative">{followers.toLocaleString()}</span><br/>Followers
+                    </div>
+                    <div className="text-center ">
+                        <span className="font-bold">1</span><br/>Following
                     </div>
                 </div>
             </div>
